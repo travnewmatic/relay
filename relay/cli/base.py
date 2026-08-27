@@ -151,7 +151,7 @@ def cli_run(state: State, dev: bool = False) -> None:
 
 			return
 
-		cli_setup.callback() # type: ignore[misc]
+		cli_setup.callback(skip_questions = True) # type: ignore[misc]
 		return
 
 	state.dev = dev
