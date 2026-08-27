@@ -53,7 +53,10 @@ async def cli_inbox_follow(state: State, actor: str) -> None:
 					click.echo(f"Failed to fetch actor: {actor}")
 					return
 
-				inbox = actor_data.shared_inbox
+				try:
+					inbox = actor_data.shared_inbox
+				except (KeyError, TypeError):
+					inbox = actor_data["inbox"]
 
 		message = Message.new_follow(
 			host = state.config.domain,
@@ -96,7 +99,10 @@ async def cli_inbox_unfollow(state: State, actor: str) -> None:
 					click.echo("Failed to fetch actor")
 					return
 
-				inbox = actor_data.shared_inbox
+				try:
+					inbox = actor_data.shared_inbox
+				except (KeyError, TypeError):
+					inbox = actor_data["inbox"]
 				message = Message.new_unfollow(
 					host = state.config.domain,
 					actor = actor,
